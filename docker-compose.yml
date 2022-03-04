@@ -1,0 +1,29 @@
+version: "3.7"
+
+services:
+  laravel-app:
+    build:
+      context: '.'
+      #args:
+      #uid: ${UID}
+    container_name: laravel-app
+    environment:
+      XDEBUG_CLIENT_HOST: 172.25.0.1
+      XDEBUG_CLIENT_PORT: 9003
+      PHP_IDE_CONFIG: serverName=Docker
+    #  - APACHE_RUN_USER=#${UID}
+    #  - APACHE_RUN_GROUP=#${UID}
+    volumes:
+      - ./html:/var/www/html
+    ports:
+      - 8000:80
+
+  db:
+    image: mysql
+    container_name: mysql-db
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=gymapi
+      - MYSQL_PASSWORD=gymapi
+      - MYSQL_ROOT_PASSWORD=m3rc3nary011
